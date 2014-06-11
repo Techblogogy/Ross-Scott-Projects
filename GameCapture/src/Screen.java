@@ -20,12 +20,12 @@ public class Screen
 		win.setUndecorated(true);
 		win.setResizable(false);
 		
-		//vc.setFullScreenWindow(win);
+		vc.setFullScreenWindow(win);
 		
-		/*if (gm!=null && vc.isDisplayChangeSupported())
+		if (gm!=null && vc.isDisplayChangeSupported())
 		{
 			vc.setDisplayMode(gm);
-		}*/
+		}
 	}
 	
 	public void CloseFullScreen()

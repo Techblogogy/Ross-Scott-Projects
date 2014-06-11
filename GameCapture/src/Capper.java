@@ -1,4 +1,5 @@
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.MouseInfo;
@@ -18,20 +19,31 @@ public class Capper {
 	private JPanel jp = new Drawer();
 	private Timer t;
 	private boolean isRunning;
+	private JFrame frame;
 	private DisplayMode dm;
+	
+	public int screenH;
+	public int screenW;
 	
 	public Capper()
 	{
+		screenH = Toolkit.getDefaultToolkit().getScreenSize().height;
+		screenW = (screenH * 800) / 600;
+		
 		dm = new DisplayMode(800, 600, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
 		
-		JFrame frame = new JFrame("Region");
+		frame = new JFrame("Region");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.getContentPane().add(jp);
 		
 		frame.setResizable(false);
+		frame.setUndecorated(true);
 		frame.setPreferredSize(new Dimension(800,600));
+		//frame.setLocation(8, 30);
 		frame.setAlwaysOnTop(true);
+		
+		frame.setBackground(new Color(0,0,0,0));
 		
 		/*Screen sc = new Screen();
 		sc.setFullScreen(dm, frame);*/
@@ -65,13 +77,13 @@ public class Capper {
 		});
 		
 		t = new Timer();
-		t.schedule(new GLoop(), 0, 1000/30);
+		t.schedule(new GLoop(), 0, 1000/60);
 	}
 	
 	private class GLoop extends TimerTask
 	{
 		public void run()
-		{
+		{	
 			jp.repaint();
 			
 			if (!isRunning)
